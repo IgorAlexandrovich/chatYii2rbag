@@ -35,14 +35,20 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-
+if(!Yii::$app->user->can('admin')){
+$visible = false;
+};
+if (!Yii::$app->user->isGuest){
+    $visibleguest = false;
+}
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
+
         'items' => [
             ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'Админ просмотр юзеров', 'url' => ['/auth-assignment/index']],
-            ['label' => 'Админ просмотр сообщений', 'url' => ['/message/index']],
-            ['label' => 'Регистрация', 'url' => ['/site/reg']],
+            ['label' => 'Админ просмотр юзеров', 'url' => ['/auth-assignment/index'], 'visible'=> $visible],
+            ['label' => 'Админ просмотр сообщений', 'url' => ['/message/index'], 'visible'=> $visible],
+            ['label' => 'Регистрация', 'url' => ['/site/reg'],'visible'=> $visibleguest],
 
 
             Yii::$app->user->isGuest ? (
